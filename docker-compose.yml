@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  agent-core:
+    image: python:3.11
+    container_name: agent-core
+    volumes:
+      - ./agent:/app
+    working_dir: /app
+    command: ["python3", "main.py"]
+    restart: always
+
+  alert-engine:
+    image: python:3.11
+    container_name: alert-engine
+    volumes:
+      - ./alert:/app
+    working_dir: /app
+    command: ["python3", "alert_monitor.py"]
+    restart: always
+
+  ng911-heartbeat:
+    image: python:3.11
+    container_name: ng911-heartbeat
+    volumes:
+      - ./heartbeat:/app
+    working_dir: /app
+    command: ["python3", "heartbeat.py"]
+    restart: always
+
+  modem-service:
+    image: python:3.11
+    container_name: modem-service
+    volumes:
+      - ./modem:/app
+    working_dir: /app
+    command: ["python3", "modem_watch.py"]
+    restart: always
